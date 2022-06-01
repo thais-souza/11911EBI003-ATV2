@@ -106,6 +106,62 @@ uint32_t vectors[] __attribute__((section(".isr_vectors"))) =
     0,                                    /* 0x0000 0034 */
     (uint32_t)pendsv_handler,             /* 0x0000 0038 */
     (uint32_t)systick_handler,            /* 0x0000 003c */
+    (uint32_t) wwdg_handler,              /* 0x0000 0040 */
+    (uint32_t) exti16_handler,            /* 0x0000 0044 */
+    (uint32_t) exti21_handler,            /* 0x0000 0048 */
+    (uint32_t) exti22_handler,            /* 0x0000 004c */
+    (uint32_t) flash_handler,             /* 0x0000 0050 */
+    (uint32_t) rcc_handler,               /* 0x0000 0054 */
+    (uint32_t) exti0_handler,             /* 0x0000 0058 */
+    (uint32_t) exti1_handler,             /* 0x0000 005c */
+    (uint32_t) exti2_handler,             /* 0x0000 0060 */
+    (uint32_t) exti3_handler,             /* 0x0000 0064 */
+    (uint32_t) exti4_handler,             /* 0x0000 0068 */
+    (uint32_t) dma1strm0_handler,         /* 0x0000 006c */
+    (uint32_t) dma1strm1_handler,         /* 0x0000 0070 */
+    (uint32_t) dma1strm2_handler,         /* 0x0000 0074 */
+    (uint32_t) dma1strm3_handler,         /* 0x0000 0078 */
+    (uint32_t) dma1strm4_handler,         /* 0x0000 007c */
+    (uint32_t) dma1strm5_handler,         /* 0x0000 0080 */
+    (uint32_t) dma1strm6_handler,         /* 0x0000 0084 */
+    (uint32_t) adc_handler,               /* 0x0000 0088 */
+    (uint32_t) exti95_handler,            /* 0x0000 009c */
+    (uint32_t) tim1brk9_handler,          /* 0x0000 00a0 */
+    (uint32_t) tim1up10_handler,          /* 0x0000 00a4 */
+    (uint32_t) tim1trgcom11_handler,      /* 0x0000 00a8 */
+    (uint32_t) tim1cc_handler,            /* 0x0000 00ac */
+    (uint32_t) tim2_handler,              /* 0x0000 00b0 */
+    (uint32_t) tim3_handler,              /* 0x0000 00b4 */
+    (uint32_t) tim4_handler,              /* 0x0000 00b8 */
+    (uint32_t) i2c1ev_handler,            /* 0x0000 00bc */
+    (uint32_t) i2c1er_handler,            /* 0x0000 00c0 */
+    (uint32_t) i2c2ev_handler,            /* 0x0000 00c4 */
+    (uint32_t) i2c2er_handler,            /* 0x0000 00c8 */
+    (uint32_t) spi1_handler,              /* 0x0000 00cc */
+    (uint32_t) spi2_handler,              /* 0x0000 00d0 */
+    (uint32_t) usart1_handler,            /* 0x0000 00d4 */
+    (uint32_t) usart2_handler,            /* 0x0000 00d8 */
+    (uint32_t) exti510_handler,           /* 0x0000 00e0 */
+    (uint32_t) exti17_handler,            /* 0x0000 00e4 */
+    (uint32_t) exti18_handler,            /* 0x0000 00e8 */
+    (uint32_t) dma1strm7_handler,         /* 0x0000 00fc */
+    (uint32_t) stdio_handler,             /* 0x0000 0104 */
+    (uint32_t) tim5_handler,              /* 0x0000 0108 */
+    (uint32_t) spi3_handler,              /* 0x0000 010c */
+    (uint32_t) dma2strm0_handler,         /* 0x0000 0120 */
+    (uint32_t) dma2strm1_handler,         /* 0x0000 0124 */
+    (uint32_t) dma2strm2_handler,         /* 0x0000 0128 */
+    (uint32_t) dma2strm3_handler,         /* 0x0000 012c */
+    (uint32_t) dma2strm4_handler,         /* 0x0000 0130 */
+    (uint32_t) otgfs_handler,             /* 0x0000 014c */
+    (uint32_t) dma2strm5_handler,         /* 0x0000 0150 */
+    (uint32_t) dma2strm6_handler,         /* 0x0000 0154 */
+    (uint32_t) dma2strm7_handler,         /* 0x0000 0158 */
+    (uint32_t) usart6_handler,            /* 0x0000 015c */
+    (uint32_t) i2c3ev_handler,            /* 0x0000 0160 */
+    (uint32_t) i2c3er_handler,            /* 0x0000 0164 */
+    (uint32_t) fpu,                       /* 0x0000 0184 */
+    (uint32_t) spi4,                      /* 0x0000 0190 */
 };
 
 void reset_handler(void)
