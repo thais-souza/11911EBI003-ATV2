@@ -9,8 +9,8 @@
 
 #define STM32_GPIO_MODER_OFFSET 0x0000                              /* GPIO port mode register */
 #define STM32_GPIO_OTYPER_OFFSET 0x0004                             /* GPIO port output type register */
-#define STM32_GPIO_IDR_OFFSET 0x0010                             /* GPIO port output type register */
 #define STM32_GPIO_PUPDR_OFFSET 0x000c                              /* GPIO port pull-up/pull-down register */
+#define STM32_GPIO_IDR_OFFSET 0x0010                                /* GPIO port input data register */
 #define STM32_GPIO_BSRR_OFFSET 0x0018                               /* GPIO port bit set/reset register */
 /* Register Addresses *******************************************************/
 #define STM32_RCC_AHB1ENR (STM32_RCC_BASE+STM32_RCC_AHB1ENR_OFFSET)
@@ -49,9 +49,6 @@
 #define GPIO_OT13_SHIFT (13)
 #define GPIO_OT13_MASK (1 << GPIO_OT13_SHIFT)
 
-#define GPIO_OT0_SHIFT (0)
-#define GPIO_OT0_MASK (1 << GPIO_OT0_SHIFT)
-
 /* GPIO port pull-up/pull-down register */
 #define GPIO_PUPDR_NONE (0)                                         /* No pull-up, pull-down */
 #define GPIO_PUPDR_PULLUP (1)                                       /* Pull-up */
@@ -67,14 +64,12 @@
 #define GPIO_BSRR_SET(n) (1 << (n))
 #define GPIO_BSRR_RST(n) (1 << (n + 16))
 
-/* LED delay */
-#define LED_DELAY 50000
-
 static uint32_t led_status;
 
 int main(int argc, char *argv[])
 {
     uint32_t reg;
+    uint32_t led_delay;
 
     /* Ponteiros para registradores */
 
@@ -88,7 +83,6 @@ int main(int argc, char *argv[])
     uint32_t *pGPIOA_MODER = (uint32_t *) STM32_GPIOA_MODER;
     uint32_t *pGPIOA_IDR = (uint32_t *) STM32_GPIOA_IDR;
     uint32_t *pGPIOA_PUPDR = (uint32_t *) STM32_GPIOA_PUPDR;
-    uint32_t *pGPIOA_BSRR = (uint32_t *) STM32_GPIOA_BSRR;
 
     /* Habilita clock GPIOC */
 
@@ -127,17 +121,21 @@ int main(int argc, char *argv[])
     *pGPIOA_MODER = reg;
 
     reg = *pGPIOA_PUPDR;
-    reg &= ~(GPIO_PUPDR13_MASK);
+    reg &= ~(GPIO_PUPDR0_MASK);
     reg |= (GPIO_PUPDR_PULLUP << GPIO_PUPDR0_SHIFT);
     *pGPIOA_PUPDR = reg;
 
     while(1)
     {
-        *pGPIOC_BSRR = GPIO_BSRR_SET(13);
-        led_status = 0;
+        if ( *pGPIOA_IDR )
+            led_delay = 400;
+        else
+            led_delay = 100;
+
+        *pGPIOC_BSRR = GPIO_BSRR_RESET(13);
         for(uint32_t i = 0; i < LED_DELAY; i++);
-        *pGPIOC_BSRR = GPIO_BSRR_RST(13);
-        led_status = 1;
+
+        *pGPIOC_BSRR = GPIO_BSRR_SET(13);
         for(uint32_t i = 0; i < LED_DELAY; i++);
     }
     return EXIT_SUCCESS;
