@@ -127,16 +127,16 @@ int main(int argc, char *argv[])
 
     while(1)
     {
-        if ( *pGPIOA_IDR )
+        if ( !(*pGPIOA_IDR) )
             led_delay = 400;
         else
             led_delay = 100;
 
-        *pGPIOC_BSRR = GPIO_BSRR_RESET(13);
-        for(uint32_t i = 0; i < LED_DELAY; i++);
-
         *pGPIOC_BSRR = GPIO_BSRR_SET(13);
-        for(uint32_t i = 0; i < LED_DELAY; i++);
+        for(uint32_t i = 0; i < led_delay; i++);
+
+        *pGPIOC_BSRR = GPIO_BSRR_RST(13);
+        for(uint32_t i = 0; i < led_delay; i++);
     }
     return EXIT_SUCCESS;
 }

@@ -1,6 +1,7 @@
-# PISCAR LED NO STM32F401
+# PISCAR LED NO STM32F401 DEPENDENDO DO ESTADO DO TACTILE SWITCH
 
-Os arquivos do repositório em questão tem o objetivo de enviar um comando para o microcontrolador STM32F401 piscar o seu LED integrado. Este está conectado à porta PC13, conforme o esquemático disponível em [STM32F401 Schematic](https://stm32-base.org/assets/pdf/boards/original-schematic-STM32F401CCU6_WeAct_Black_Pill_V1.2.pdf). Para isso, tem-se quatro arquivos base:
+Os arquivos do repositório em questão tem o objetivo de enviar um comando para o microcontrolador STM32F401 piscar o seu LED integrado dependendo do estado de um interruptor tátil. O LED está conectado à porta PC13, conforme o esquemático disponível em [STM32F401 Schematic](https://stm32-base.org/assets/pdf/boards/original-schematic-STM32F401CCU6_WeAct_Black_Pill_V1.2.pdf),
+enquanto o interruptor está na PA0. Para isso, tem-se quatro arquivos base:
 - main.c
 - startup.c
 - linker script
@@ -12,4 +13,8 @@ Em relação aos dados do projeto, há a necessidade da seção .bss ser inicial
 
 Para a configuração da porta PC13, habilita-se o clock do GPIOC, o que é feito por meio do registrador RCC_AHB1RSTR. Então, é configurado o modo de operação do GPIO (como uma saída de propósito geral), o tipo de saída (push-pull) e a configuração da saída (nem pull-up e nem pull-down). Essas características são impostas no **main.c** anteriormente à execução dos comandos em looping. Foi utilizado como base o [STM32F401 Reference Manual](https://www.st.com/resource/en/reference_manual/dm00096844-stm32f401xb-c-and-stm32f401xd-e-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf).
 
-Por fim, para que o LED piscasse, o bit correspondente era setado ou resetado após um determinado período de tempo definido pela variável LED_DELAY. Destaca-se que o processo de compilação foi automatizado com o arquivo **Makefile**. Assim, as diretivas de compilação e as opções do linker, assim como a definição de quais arquivos gerar e a lista de dependências, não precisavam ser escritas a cada compilação. 
+Já para a configuração da porta PA0, habilitou-se o clock do GPIOA, impôs-se o modo de operação de entrada e o tipo como pull-up, uma vez que, com a chave aberta, o estado do interruptor seria indeterminado. Com essas operações, o valor apontado pelo ponteiro pGPIOA_IDR mostra se a chave está pressionada ou não. A chave pressionada está em nível baixo, assim, quando o valor apontado for 0, o led_delay será maior. 
+
+Destaca-se que o processo de compilação foi automatizado com o arquivo **Makefile**. Assim, as diretivas de compilação e as opções do linker, assim como a definição de quais arquivos gerar e a lista de dependências, não precisavam ser escritas a cada compilação. 
+
+Por fim, para que o LED piscasse, o bit correspondente era setado ou resetado após um determinado período de tempo definido pela variável led_delay. 
