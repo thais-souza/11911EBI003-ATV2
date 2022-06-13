@@ -64,8 +64,6 @@
 #define GPIO_BSRR_SET(n) (1 << (n))
 #define GPIO_BSRR_RST(n) (1 << (n + 16))
 
-static uint32_t led_status;
-
 int main(int argc, char *argv[])
 {
     uint32_t reg;
