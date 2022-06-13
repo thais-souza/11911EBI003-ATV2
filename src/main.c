@@ -29,6 +29,9 @@
 /* AHB1 Peripheral Clock enable register */
 #define RCC_AHB1ENR_GPIOCEN (1 << 2)                                /* Bit 2: IO port C clock enable */
 #define RCC_AHB1ENR_GPIOAEN (1 << 0)                                /* Bit 0: IO port A clock enable */
+                                                                    /* Apesar do deslocamento de 0 não
+                                                                    ter efeito prático, deixou-se aqui
+                                                                    para maior clareza dos processos */
 
 /* GPIO port mode register */
 #define GPIO_MODER_INPUT (0)                                        /* Input */
