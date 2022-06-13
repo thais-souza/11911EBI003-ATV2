@@ -61,7 +61,7 @@
 #define GPIO_PUPDR13_MASK (3 << GPIO_PUPDR13_SHIFT)
 
 #define GPIO_PUPDR0_SHIFT (0)
-#define GPIO_PUPDR0_MASK (3 << GPIO_PUPDR13_SHIFT)
+#define GPIO_PUPDR0_MASK (3 << GPIO_PUPDR0_SHIFT)
 
 /* GPIO port bit set/reset register */
 #define GPIO_BSRR_SET(n) (1 << (n))
