@@ -128,10 +128,11 @@ int main(int argc, char *argv[])
 
     while(1)
     {
-        if ( !(*pGPIOA_IDR) )
-            led_delay = 400;
+        /* Verifica se está em nível lógico baixo */
+        if ( !(*pGPIOA_IDR & 1) )
+            led_delay = 100000;
         else
-            led_delay = 100;
+            led_delay = 50000;
 
         *pGPIOC_BSRR = GPIO_BSRR_SET(13);
         for(uint32_t i = 0; i < led_delay; i++);
